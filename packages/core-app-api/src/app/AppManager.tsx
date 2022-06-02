@@ -47,6 +47,8 @@ import {
   IdentityApi,
   identityApiRef,
   BackstagePlugin,
+  ExtensionsProvider,
+  ComponentExtensions,
 } from '@backstage/core-plugin-api';
 import { ApiFactoryRegistry, ApiResolver } from '../apis/system';
 import {
@@ -172,6 +174,7 @@ export class AppManager implements BackstageApp {
   private readonly icons: NonNullable<AppOptions['icons']>;
   private readonly plugins: Set<CompatiblePlugin>;
   private readonly components: AppComponents;
+  private readonly extensions: ComponentExtensions;
   private readonly themes: AppTheme[];
   private readonly configLoader?: AppConfigLoader;
   private readonly defaultApis: Iterable<AnyApiFactory>;
@@ -185,6 +188,7 @@ export class AppManager implements BackstageApp {
     this.icons = options.icons;
     this.plugins = new Set((options.plugins as CompatiblePlugin[]) ?? []);
     this.components = options.components;
+    this.extensions = options.extensions ?? [];
     this.themes = options.themes as AppTheme[];
     this.configLoader = options.configLoader ?? defaultConfigLoader;
     this.defaultApis = options.defaultApis ?? [];
@@ -206,6 +210,15 @@ export class AppManager implements BackstageApp {
 
   getComponents(): AppComponents {
     return this.components;
+  }
+
+  getExtensions(): ComponentExtensions {
+    return [
+      // Plugin-provided extensions
+      ...this.getPlugins().flatMap(plugin => plugin.extensions ?? []),
+      // App-provided extensions
+      ...this.extensions,
+    ];
   }
 
   getProvider(): ComponentType<{}> {
@@ -301,6 +314,8 @@ export class AppManager implements BackstageApp {
         }
       }, [hasConfigApi, loadedConfig, featureFlags]);
 
+      const extensions = useMemo(() => this.getExtensions(), []);
+
       if ('node' in loadedConfig) {
         // Loading or error
         return loadedConfig.node;
@@ -322,7 +337,9 @@ export class AppManager implements BackstageApp {
                 <InternalAppContext.Provider
                   value={{ routeObjects: routing.objects }}
                 >
-                  {children}
+                  <ExtensionsProvider extensions={extensions}>
+                    {children}
+                  </ExtensionsProvider>
                 </InternalAppContext.Provider>
               </RoutingProvider>
             </ThemeProvider>
