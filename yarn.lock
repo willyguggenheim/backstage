@@ -3029,6 +3029,7 @@ __metadata:
     "@types/mock-fs": ^4.13.0
     "@types/morgan": ^1.9.0
     "@types/recursive-readdir": ^2.2.0
+    "@types/request": ^2.47.1
     "@types/stoppable": ^1.1.0
     "@types/supertest": ^2.0.8
     "@types/tar": ^6.1.1
@@ -5767,6 +5768,7 @@ __metadata:
     "@types/aws4": ^1.5.1
     "@types/express": ^4.17.6
     "@types/luxon": ^3.0.0
+    "@types/request": ^2.47.1
     aws-sdk: ^2.840.0
     aws-sdk-mock: ^5.2.1
     aws4: ^1.11.0
@@ -5793,6 +5795,7 @@ __metadata:
     "@backstage/catalog-model": "workspace:^"
     "@backstage/cli": "workspace:^"
     "@kubernetes/client-node": ^0.17.1
+    "@types/request": ^2.47.1
   languageName: unknown
   linkType: soft
 
@@ -5821,6 +5824,7 @@ __metadata:
     "@testing-library/user-event": ^14.0.0
     "@types/node": ^16.11.26
     "@types/react": ^16.13.1 || ^17.0.0
+    "@types/request": ^2.47.1
     cronstrue: ^2.2.0
     cross-fetch: ^3.1.5
     js-yaml: ^4.0.0
@@ -12748,6 +12752,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/caseless@npm:*":
+  version: 0.12.2
+  resolution: "@types/caseless@npm:0.12.2"
+  checksum: 430d15911184ad11e0a8aa21d1ec15fcc93b90b63570c37bf16ebd34457482bfc8de3f5eb6771e0ef986ce183270d4297823b0f492c346255967e78f7292388b
+  languageName: node
+  linkType: hard
+
 "@types/classnames@npm:^2.2.9":
   version: 2.3.1
   resolution: "@types/classnames@npm:2.3.1"
@@ -14023,6 +14034,18 @@ __metadata:
   version: 2.0.2
   resolution: "@types/regression@npm:2.0.2"
   checksum: 28ae464c5ffda1698cecf1b1c2e21ed016ae1d71623c7f40bc5404aa55569cca03ac33d29737805059851cc734946027b006858d13a642e12240267c96d49299
+  languageName: node
+  linkType: hard
+
+"@types/request@npm:^2.47.1":
+  version: 2.48.8
+  resolution: "@types/request@npm:2.48.8"
+  dependencies:
+    "@types/caseless": "*"
+    "@types/node": "*"
+    "@types/tough-cookie": "*"
+    form-data: ^2.5.0
+  checksum: 0b7754941e08205dce51635d894ec524df276d2b83ca13b9aab723f9281acecf1108841e9554494cb1cb60f6d6ddbb47ebea97392bcf2bf607f035b3a9b4af45
   languageName: node
   linkType: hard
 
@@ -22628,7 +22651,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^2.3.2":
+"form-data@npm:^2.3.2, form-data@npm:^2.5.0":
   version: 2.5.1
   resolution: "form-data@npm:2.5.1"
   dependencies:
